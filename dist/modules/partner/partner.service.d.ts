@@ -1,0 +1,32 @@
+import { EntityManager, Repository } from 'typeorm';
+import { Partner } from './partner.entity';
+import { ServiceBase } from '../../common/helpers/service.base';
+import { CreatePartnerDto } from './dto/create-partner.dto';
+import { LocationService } from '../location/location.service';
+import { BankAccountService } from '../bank-account/bank-account.service';
+import { AccountService } from '../account/account.service';
+import { UpdatePartnerDto } from './dto/update-partner.dto';
+import { BasicPaginationDto } from '../../common/helpers/basic-pagination.dto';
+import { FileService } from '../file/file.service';
+import { IResponseWithPagination } from '../../common/helpers/interfaces/reponseWithPagination.interface';
+import { FileUtils } from '../file/fileUtils';
+import { SetArchivedStatusDto } from '../client/dto/set-archived-status.dto';
+import { UtilsService } from '../../common/utils/utils.service';
+import { FindPartnerDto } from './dto/find-partner.dto';
+export declare class PartnerService extends ServiceBase<Partner> {
+    protected readonly repository: Repository<Partner>;
+    private locationService;
+    private bankAccountService;
+    private accountService;
+    private fileService;
+    private fileUtils;
+    private utilsService;
+    constructor(repository: Repository<Partner>, locationService: LocationService, bankAccountService: BankAccountService, accountService: AccountService, fileService: FileService, fileUtils: FileUtils, utilsService: UtilsService<Partner>);
+    create(data: CreatePartnerDto, manager?: EntityManager): Promise<Partner>;
+    updateById(id: number, data: UpdatePartnerDto, manager?: EntityManager): Promise<Partner>;
+    findById(id: number): Promise<Partner>;
+    find(params?: FindPartnerDto, pagination?: BasicPaginationDto): Promise<IResponseWithPagination<Partner>>;
+    deleteById(id: number): Promise<void>;
+    setArchivedStatusById(id: number, body: SetArchivedStatusDto): Promise<void>;
+    private findWithRelations;
+}

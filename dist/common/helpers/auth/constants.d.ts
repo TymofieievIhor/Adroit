@@ -1,0 +1,12 @@
+export declare const BEARER_TOKEN_SECRET = " ";
+export declare const GLOBAL_TOKEN_SECRET: string;
+export declare const EXPIRATION_TIME: number;
+export declare const ROLES_METAKEY = "roles";
+export declare const PROTECTED_CONTROLLERS: string[];
+export declare const TOKEN_HEADER = "token";
+export declare const ACCOUNT_ID_HEADER = "account-id";
+export declare const REQUEST_PROPERTY_TOKEN = "token";
+export declare const ALLOW_ACCESS_TOKEN_METAKEY = "allow-access-token";
+export declare const RANDOM_BYTES_SIZE = 48;
+export declare const MAX_SIGN_IN_ATTEMPTS = 5;
+export declare const MAX_SIGN_IN_INTERVAL_MINUTES = 30;

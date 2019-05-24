@@ -1,0 +1,16 @@
+export declare const SIGN_IN_CRED_MISMATCH_MSG = "It seems that the credentials combination you provided don't match. Please try again";
+export declare const SIGN_IN_EXCEED_ATTEMPTS_MSG: string;
+export declare const DUPLICATE_ENTRY_PHONE_NUM = "The phone number you entered is already registered with another account. Please try using a different one.";
+export declare const DUPLICATE_ENTRY_EMAIL = "The email you entered is already registered with another account. Please try using a different one.";
+export declare const MISSING_RECORD = "The record is missing";
+export declare const WRONG_WAYPOINT_STATUS = "Wrong waypoint status";
+export declare const WRONG_WAYPOINT_PASSENGER_STATUS = "Wrong waypoint passenger status";
+export declare const WRONG_TRIP_STATUS = "Wrong trip status";
+export declare const TRIP_STATUS_DOES_NOT_EXIST = "The trip status doesn't exist";
+export declare const TRIP_FIND_PARAMS_SHOULD_BE_PRESENT = "The trip find params should be present";
+export declare const TRIP_TYPE_UNKNOWN = "The trip type to find is only AM or PM";
+export declare const TRIP_DATE_OF_SERVICE_ABSENT = "The trip date of service should be present";
+export declare const RECURRING_TRIP_CREATION_ERR = "A daily recurring trip cannot be created";
+export declare const BP_ASSIGNMENT_NOT_FOUND = "A ride-blueprint assignment is missing";
+export declare const DRIVER_ID_IS_MISSING = "No driver id was provided";
+export declare const INVALID_TOKEN = "Failed to confirm email";

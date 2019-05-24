@@ -1,0 +1,33 @@
+import { ControllerBase } from '../../common/helpers/controller.base';
+import { Client } from './client.entity';
+import { ClientService } from './client.service';
+import { CreateClientDto } from './dto/create-client.dto';
+import { Contact } from '../contact/contact.entity';
+import { IResponseWithPagination } from '../../common/helpers/interfaces/reponseWithPagination.interface';
+import { BasicPaginationDto } from '../../common/helpers/basic-pagination.dto';
+import { BankAccount } from '../bank-account/bank-account.entity';
+import { BankAccountService } from '../bank-account/bank-account.service';
+import { File } from '../file/entities/file.entity';
+import { FileService } from '../file/file.service';
+import { UpdateClientDto } from './dto/update-client.dto';
+import { FindClientParamsDto } from './dto/find-client-params.dto';
+import { SetArchivedStatusDto } from './dto/set-archived-status.dto';
+import { ServiceContract } from '../service-contract/entities/service-contract.entity';
+import { Passenger } from '../passenger/passenger.entity';
+import { PassengerService } from '../passenger/passenger.service';
+export declare class ClientController extends ControllerBase<Client> {
+    protected service: ClientService;
+    private bankAccountService;
+    private fileService;
+    private passengerService;
+    constructor(service: ClientService, bankAccountService: BankAccountService, fileService: FileService, passengerService: PassengerService);
+    create(body: CreateClientDto, req?: any): Promise<Client>;
+    find(params: FindClientParamsDto, pagination: BasicPaginationDto): Promise<IResponseWithPagination<Client>>;
+    findContacts(id: number, pagination?: BasicPaginationDto): Promise<IResponseWithPagination<Contact>>;
+    findAll(id: number, pagination?: BasicPaginationDto): Promise<IResponseWithPagination<BankAccount>>;
+    findFiles(id: number, pagination?: BasicPaginationDto): Promise<IResponseWithPagination<File>>;
+    findServiceContracts(id: number, pagination?: BasicPaginationDto): Promise<IResponseWithPagination<ServiceContract>>;
+    findClientPassengers(id: number, pagination?: BasicPaginationDto): Promise<IResponseWithPagination<Passenger>>;
+    updateById(id: number, body: UpdateClientDto, req?: any): Promise<Client>;
+    setArchiveDStatus(id: number, body: SetArchivedStatusDto): Promise<void>;
+}

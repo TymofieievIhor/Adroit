@@ -1,0 +1,1 @@
+{"version":3,"file":"send-confirmation-email.dto.js","sourceRoot":"","sources":["../../../../src/modules/auth/dto/send-confirmation-email.dto.ts"],"names":[],"mappings":";;;;;;;;;;;AAAA,6CAAmD;AAEnD,MAAa,wBAAwB;CAMpC;AAJC;IADC,0BAAgB,CAAC,EAAC,OAAO,EAAE,CAAC,EAAC,CAAC;;oDACpB;AAGX;IADC,0BAAgB,CAAC,EAAC,OAAO,EAAE,WAAW,EAAC,CAAC;;sDAC5B;AALf,4DAMC"}

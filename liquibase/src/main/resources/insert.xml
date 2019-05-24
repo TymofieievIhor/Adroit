@@ -1,0 +1,436 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="insert_changelog_0001" author="ADROIT" context="default">
+        <insert tableName="api_client">
+            <column name="value">1</column>
+            <column name="text_value">adroit_dashboard</column>
+            <column name="name">Adroit Dashboard</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="api_client">
+            <column name="value">2</column>
+            <column name="text_value">adroit_driver_ios</column>
+            <column name="name">Adroit Driver iOS</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="api_client">
+            <column name="value">3</column>
+            <column name="text_value">adroit_driver_android</column>
+            <column name="name">Adroit Driver Android</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="api_client">
+            <column name="value">4</column>
+            <column name="text_value">adroit_family_ios</column>
+            <column name="name">Adroit Family iOS</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="api_client">
+            <column name="value">5</column>
+            <column name="text_value">adroit_family_android</column>
+            <column name="name">Adroit Family Android</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="account_type">
+            <column name="value">1</column>
+            <column name="text_value">adroit_bot</column>
+            <column name="name">Adroit Bot</column>
+            <column name="display_in_user_interface">0</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="account_type">
+            <column name="value">2</column>
+            <column name="text_value">super_admin</column>
+            <column name="name">Super Admin</column>
+            <column name="display_in_user_interface">0</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="account_type">
+            <column name="value">3</column>
+            <column name="text_value">admin</column>
+            <column name="name">Admin</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="account_type">
+            <column name="value">4</column>
+            <column name="text_value">dispatch_manager</column>
+            <column name="name">Dispatch Manager</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="account_type">
+            <column name="value">5</column>
+            <column name="text_value">account_manager</column>
+            <column name="name">Account Manager</column>
+            <column name="display_in_user_interface">0</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="account_type">
+            <column name="value">6</column>
+            <column name="text_value">sales_manager</column>
+            <column name="name">Sales Manager</column>
+            <column name="display_in_user_interface">0</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="account_type">
+            <column name="value">7</column>
+            <column name="text_value">partner_account_owner</column>
+            <column name="name">Partner Account Owner</column>
+            <column name="display_in_user_interface">0</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="account_type">
+            <column name="value">8</column>
+            <column name="text_value">driver</column>
+            <column name="name">Driver</column>
+            <column name="display_in_user_interface">0</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="account_type">
+            <column name="value">9</column>
+            <column name="text_value">client_account_owner</column>
+            <column name="name">Client Account Owner</column>
+            <column name="display_in_user_interface">0</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="account_type">
+            <column name="value">10</column>
+            <column name="text_value">client_admin</column>
+            <column name="name">Client Admin</column>
+            <column name="display_in_user_interface">0</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="account_type">
+            <column name="value">11</column>
+            <column name="text_value">guardian</column>
+            <column name="name">Guardian</column>
+            <column name="display_in_user_interface">0</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="location_type">
+            <column name="value">1</column>
+            <column name="text_value">trip_start_point</column>
+            <column name="name">Trip Start Point</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="location_type">
+            <column name="value">2</column>
+            <column name="text_value">trip_end_point</column>
+            <column name="name">Trip End Point</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="location_type">
+            <column name="value">3</column>
+            <column name="text_value">trip_point</column>
+            <column name="name">Trip Point</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="location_type">
+            <column name="value">4</column>
+            <column name="text_value">school</column>
+            <column name="name">School</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="location_type">
+            <column name="value">5</column>
+            <column name="text_value">home</column>
+            <column name="name">Home</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="location_type">
+            <column name="value">6</column>
+            <column name="text_value">community_center</column>
+            <column name="name">School</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="location_type">
+            <column name="value">7</column>
+            <column name="text_value">business</column>
+            <column name="name">Business</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="location_type">
+            <column name="value">8</column>
+            <column name="text_value">hospital</column>
+            <column name="name">Hospital</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="account">
+            <column name="account_type_id">1</column>
+            <column name="first_name">Adroit</column>
+            <column name="last_name">Bot</column>
+            <column name="email">bot@goadroit.com</column>
+            <column name="phone_number">0000000</column>
+            <column name="password_hash">$2a$10$PXnOe8R3gb9guEj1/.1vjuD5pqdJQmeKL.pDjHQk3M0R8AWl6bnFe</column>
+            <column name="token_secret">token_secret</column>
+            <column name="is_temporary_password">0</column>
+            <column name="is_email_confirmed">1</column>
+        </insert>
+        <insert tableName="account">
+            <column name="account_type_id">2</column>
+            <column name="first_name">Super</column>
+            <column name="last_name">Admin</column>
+            <column name="email">admin@goadroit.com</column>
+            <column name="phone_number">11111111111</column>
+            <column name="password_hash">$2a$10$PXnOe8R3gb9guEj1/.1vjuD5pqdJQmeKL.pDjHQk3M0R8AWl6bnFe</column>
+            <column name="token_secret">token_secret</column>
+            <column name="is_temporary_password">0</column>
+            <column name="is_email_confirmed">1</column>
+        </insert>
+        <insert tableName="account">
+            <column name="account_type_id">2</column>
+            <column name="first_name">Yazan</column>
+            <column name="last_name">Ibrahim</column>
+            <column name="email">yazan@goadroit.com</column>
+            <column name="phone_number">4157154100</column>
+            <column name="password_hash">$2a$10$PXnOe8R3gb9guEj1/.1vjuD5pqdJQmeKL.pDjHQk3M0R8AWl6bnFe</column>
+            <column name="token_secret">token_secret</column>
+            <column name="is_temporary_password">0</column>
+            <column name="is_email_confirmed">1</column>
+        </insert>
+        <insert tableName="account">
+            <column name="account_type_id">2</column>
+            <column name="first_name">Alaa</column>
+            <column name="last_name">Hamdan</column>
+            <column name="email">alaa@goadroit.com</column>
+            <column name="phone_number">1232123123</column>
+            <column name="password_hash">$2a$10$PXnOe8R3gb9guEj1/.1vjuD5pqdJQmeKL.pDjHQk3M0R8AWl6bnFe</column>
+            <column name="token_secret">token_secret</column>
+            <column name="is_temporary_password">0</column>
+            <column name="is_email_confirmed">1</column>
+        </insert>
+        <insert tableName="bank_account">
+            <column name="owner_first_name">John</column>
+            <column name="owner_last_name">Doe</column>
+            <column name="bank_account_type">checking</column>
+            <column name="account_number">1</column>
+            <column name="routing_number">1</column>
+        </insert>
+        <insert tableName="location">
+            <column name="type">home</column>
+            <column name="latitude">37.5591</column>
+            <column name="longitude">-122.303</column>
+            <column name="street1">1670 S Amphlett Blvd</column>
+            <column name="city">San Mateo</column>
+            <column name="state">CA</column>
+            <column name="zipcode">94402</column>
+            <column name="country">USA</column>
+        </insert>
+    </changeSet>
+    <changeSet id="insert_changelog_0002" author="ADROIT" context="default">
+        <insert tableName="client_type">
+            <column name="value">1</column>
+            <column name="text_value">school_district</column>
+            <column name="name">School District</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="client_type">
+            <column name="value">2</column>
+            <column name="text_value">transportation_agency</column>
+            <column name="name">Transportation Agency</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+    </changeSet>
+    <changeSet id="insert_changelog_0003" author="ADROIT" context="default">
+        <insert tableName="time_zone">
+            <column name="name">Eastern Standard Time</column>
+            <column name="abbreviation">EST</column>
+            <column name="offset">-5</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="time_zone">
+            <column name="name">Central Standard Time</column>
+            <column name="abbreviation">CST</column>
+            <column name="offset">-6</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="time_zone">
+            <column name="name">Mountain Standard Time</column>
+            <column name="abbreviation">MST</column>
+            <column name="offset">-7</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="time_zone">
+            <column name="name">Pacific Standard Time</column>
+            <column name="abbreviation">PST</column>
+            <column name="offset">-8</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="time_zone">
+            <column name="name">Alaska Standard Time</column>
+            <column name="abbreviation">AKST</column>
+            <column name="offset">-9</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="time_zone">
+            <column name="name">Hawaii Standard Time</column>
+            <column name="abbreviation">HST</column>
+            <column name="offset">-10</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+
+    </changeSet>
+    <changeSet id="insert_changelog_0004" author="ADROIT" context="default">
+        <insert tableName="service_contract_status">
+            <column name="value">1</column>
+            <column name="text_value">none</column>
+            <column name="name">None</column>
+            <column name="display_in_user_interface">0</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="service_contract_status">
+            <column name="value">2</column>
+            <column name="text_value">draft</column>
+            <column name="name">Draft</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="service_contract_status">
+            <column name="value">3</column>
+            <column name="text_value">active</column>
+            <column name="name">Active</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="service_contract_status">
+            <column name="value">4</column>
+            <column name="text_value">amended</column>
+            <column name="name">Amended</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="service_contract_status">
+            <column name="value">5</column>
+            <column name="text_value">expired</column>
+            <column name="name">Expired</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+    </changeSet>
+    <changeSet id="insert_changelog_0005" author="ADROIT" context="default">
+        <update tableName="location_type">
+            <column name="name">Community Center</column>
+            <where>id = 6</where>
+        </update>
+    </changeSet>
+    <changeSet id="insert_changelog_0006" author="ADROIT" context="default">
+        <update tableName="location_type">
+            <column name="name" value="Community Center"/>
+            <where>id = 6</where>
+        </update>
+    </changeSet>
+    <changeSet id="insert_changelog_0007" author="ADROIT" context="default">
+        <insert tableName="ride_change_request_type">
+            <column name="value">1</column>
+            <column name="text_value">advance_cancel</column>
+            <column name="name">Advance Cancel</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="ride_change_request_type">
+            <column name="value">2</column>
+            <column name="text_value">driver_change</column>
+            <column name="name">Driver Change</column>
+            <column name="display_in_user_interface">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+    </changeSet>
+    <changeSet id="insert_changelog_0008" author="ADROIT" context="default">
+        <update tableName="location_type">
+            <column name="display_in_user_interface" value="0"/>
+            <where>value IN (1, 2, 3)</where>
+        </update>
+    </changeSet>
+    <changeSet id="insert_changelog_0009" author="ADROIT" context="default">
+        <insert tableName="permission_access">
+            <column name="account_type">2</column>
+            <column name="api_client">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">3</column>
+            <column name="api_client">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">4</column>
+            <column name="api_client">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">5</column>
+            <column name="api_client">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">6</column>
+            <column name="api_client">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">7</column>
+            <column name="api_client">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">9</column>
+            <column name="api_client">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">10</column>
+            <column name="api_client">1</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">1</column>
+            <column name="api_client">2</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">1</column>
+            <column name="api_client">3</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">8</column>
+            <column name="api_client">2</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">8</column>
+            <column name="api_client">3</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">1</column>
+            <column name="api_client">4</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">1</column>
+            <column name="api_client">5</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">11</column>
+            <column name="api_client">4</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+        <insert tableName="permission_access">
+            <column name="account_type">11</column>
+            <column name="api_client">5</column>
+            <column name="created_at">1000-01-01 00:00:00</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,31 @@
+import { ServiceBase } from '../../common/helpers/service.base';
+import { Account } from './account.entity';
+import { EntityManager, Repository, SelectQueryBuilder } from 'typeorm';
+import { UpdateAccountDto } from './dto/update-account.dto';
+import { CreateAccountDto } from './dto/create-account.dto';
+import { BasicPaginationDto } from '../../common/helpers/basic-pagination.dto';
+import { IResponseWithPagination } from '../../common/helpers/interfaces/reponseWithPagination.interface';
+import { SetAccountBlockStatusDto } from './dto/set-account-block-status.dto';
+import { FindAccountDto } from './dto/find-account.dto';
+import { UpdateAccountPasswordDto } from './dto/update-account-password.dto';
+export declare class AccountService extends ServiceBase<Account> {
+    protected readonly repository: Repository<Account>;
+    constructor(repository: Repository<Account>);
+    findByEmail(email: string): Promise<Account>;
+    findByPhoneNumber(phoneNumber: string): Promise<Account>;
+    find(params?: FindAccountDto, pagination?: BasicPaginationDto): Promise<IResponseWithPagination<Account>>;
+    updatePassword(id: number, { old_password, new_password }: UpdateAccountPasswordDto): Promise<Account>;
+    resetPassword(id: number): Promise<Account>;
+    create(data: CreateAccountDto, manager?: EntityManager | Repository<Account>): Promise<Account>;
+    updateById(id: number, body: UpdateAccountDto): Promise<Account>;
+    acceptTos(id: number, req?: any): Promise<Account>;
+    setBlockStatusById(id: number, body: SetAccountBlockStatusDto): Promise<Account>;
+    findById(id: number): Promise<Account>;
+    private createPasswordHash;
+    private generateTokenSecret;
+    findWithRelations(alias: string, qb?: SelectQueryBuilder<any>): SelectQueryBuilder<Account>;
+    private getExistingAccountsQuery;
+    private checkForTheDuplicates;
+    changeTokenSecretAndFirebase(account: Account, firebase_token: string): Promise<string>;
+    static comparePasswordSync(password: string, password_hash: any): any;
+}

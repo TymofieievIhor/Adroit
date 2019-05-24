@@ -1,0 +1,2921 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create_changelog_0001" author="ADROIT" context="default">
+        <createTable tableName="account">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_type_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(512)">
+                <constraints unique="true"/>
+            </column>
+            <column name="phone_number" type="varchar(512)">
+                <constraints unique="true"/>
+            </column>
+            <column name="password_hash" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_temporary_password" type="tinyint(1)" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="token_secret" type="varchar(1024)" defaultValue="secret">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firebase_token" type="varchar(1024)"/>
+            <column name="picture_url" type="varchar(512)"/>
+            <column name="is_email_confirmed" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email_confirmed_at" type="datetime"/>
+            <column name="tos_acceptance_ip" type="varchar(64)"/>
+            <column name="tos_accepted_at" type="datetime"/>
+            <column name="is_beta_tester" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_blocked" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blocked_at" type="datetime"/>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+
+        <createTable tableName="account_type">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="text_value" type="varchar(64)" defaultValue="textVal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="display_in_user_interface" type="tinyint(1)" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+
+        <createTable tableName="api_client">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="text_value" type="varchar(64)" defaultValue="defaultText">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+
+        <createTable tableName="bank_account">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bank_name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bank_account_type" type="enum('checking','savings')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_number" type="varchar(17)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="routing_number" type="varchar(17)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+
+        <createTable tableName="location">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(512)" defaultValue="trip_point">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(256)"/>
+            <column name="latitude" type="float" defaultValue="11.11">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="float" defaultValue="11.11">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street1" type="varchar(256)" defaultValue="street1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street2" type="varchar(128)"/>
+            <column name="city" type="varchar(128)" defaultValue="LA">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="varchar(64)" defaultValue="LA">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zipcode" type="int" defaultValue="123123">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country" type="varchar(128)" defaultValue="USA">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+
+        <createTable tableName="location_type">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="text_value" type="varchar(64)" defaultValue="defaultText">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="display_in_user_interface" type="tinyint(1)" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+
+        <createTable tableName="partner">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner_account_id" type="bigint">
+                <constraints foreignKeyName="fk_owner_account_id" references="account(id)" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tin" type="int">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="location_id" type="bigint">
+                <constraints foreignKeyName="fk_partner_location_id" references="location(id)" nullable="false"/>
+            </column>
+            <column name="bank_account_id" type="bigint">
+                <constraints foreignKeyName="fk_bank_account_id" references="bank_account(id)" nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+
+        <createTable tableName="sign_in">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ip_address" type="varchar(512)"/>
+            <column name="email" type="varchar(512)"/>
+            <column name="phone_number" type="varchar(512)"/>
+            <column name="failed_password" type="varchar(1024)"/>
+            <column name="is_success" type="tinyint(1)" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="int"/>
+            <!--TODO I believe we should record api client UUID here-->
+            <column name="api_client_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="create_changelog_0002" author="ADROIT" context="default">
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_account
+            BEFORE INSERT ON account
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_account;
+        </rollback>
+
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_api_client
+            BEFORE INSERT ON api_client
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_api_client;
+        </rollback>
+
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_account_type
+            BEFORE INSERT ON account_type
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_account_type;
+        </rollback>
+
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_location
+            BEFORE INSERT ON location
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_location;
+        </rollback>
+
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_location_type
+            BEFORE INSERT ON location_type
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_location_type;
+        </rollback>
+
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_partner
+            BEFORE INSERT ON partner
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_partner;
+        </rollback>
+
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_bank_account
+            BEFORE INSERT ON bank_account
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_bank_account;
+        </rollback>
+
+    </changeSet>
+
+    <changeSet id="create_changelog_0003" author="ADROIT" context="default">
+        <modifyDataType columnName="type"
+                        newDataType="enum('trip_start_point', 'trip_end_point', 'trip_way_point', 'school', 'business', 'home', 'community_center', 'hospital')"
+                        tableName="location"
+        />
+        <addDefaultValue
+                columnDataType="enum('trip_start_point', 'trip_end_point', 'trip_way_point', 'school', 'business', 'home', 'community_center', 'hospital')"
+                columnName="type"
+                defaultValue="trip_start_point"
+                tableName="location"/>
+    </changeSet>
+
+    <changeSet id="create_changelog_0004" author="ADROIT" context="default">
+        <createTable tableName="location_link">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bank_account_id" type="bigint"/>
+            <column name="trip_id" type="bigint"/>
+            <column name="partner_id" type="bigint"/>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="create_changelog_0005" author="ADROIT" context="default">
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_location_link
+            BEFORE INSERT on location_link
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_location_link;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_changelog_0006" author="ADROIT" context="default">
+        <createTable tableName="driver">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="partner_id" type="bigint">
+                <constraints foreignKeyName="fk_partner_id" references="partner(id)" nullable="false"/>
+            </column>
+            <column name="bank_account_id" type="bigint">
+                <constraints foreignKeyName="fk_driver_bank_account_id" references="bank_account(id)" nullable="false"/>
+            </column>
+            <column name="driver_license_id" type="bigint"/>
+            <column name="ssn" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(256)"/>
+            <column name="gender" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_birth" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_serviced_trips" type="tinyint(1)" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_suspended" type="tinyint(1)" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="suspended_at" type="datetime"/>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_changelog_0007" author="ADROIT" context="default">
+        <createTable tableName="vehicle">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="make" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="year" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="color" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="license_plate" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="registration_expiry_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vin" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_id" type="bigint">
+                <constraints foreignKeyName="fk_vehicle_driver_id" references="driver(id)"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0008" author="ADROIT" context="default">
+        <createTable tableName="driver_license">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="varchar(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_expiration" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="issued_by_state" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight_in_pounds" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="height_in_feet" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="height_in_inches" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hair_color" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="eye_color" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0009" author="ADROIT" context="default">
+        <addForeignKeyConstraint baseTableName="driver" baseColumnNames="driver_license_id"
+                                 constraintName="fk_driver_driver_license_id" referencedColumnNames="id"
+                                 referencedTableName="driver_license"/>
+    </changeSet>
+    <changeSet id="create_changelog_0010" author="ADROIT" context="default">
+        <createTable tableName="vehicle_insurance">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="insurance_company_name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="policy_number" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="effective_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiration_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0011" author="ADROIT" context="default">
+        <addColumn tableName="vehicle">
+            <column name="vehicle_insurance_id" type="bigint">
+                <constraints foreignKeyName="fk_vehicle_insurance_id" references="vehicle_insurance(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0012" author="ADROIT" context="default">
+        <addColumn tableName="driver">
+            <column name="account_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_driver_account_id" references="account(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0013" author="ADROIT" context="default">
+        <dropColumn tableName="driver" columnName="first_name"/>
+        <dropColumn tableName="driver" columnName="last_name"/>
+        <dropColumn tableName="driver" columnName="email"/>
+    </changeSet>
+    <changeSet id="create_changelog_0014" author="ADROIT" context="default">
+        <addColumn tableName="bank_account">
+            <column name="partner_id" type="bigint"/>
+            <column name="driver_id" type="bigint"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0015" author="ADROIT" context="default">
+        <dropColumn tableName="location" columnName="name"/>
+    </changeSet>
+    <changeSet id="create_changelog_0016" author="ADROIT" context="default">
+        <createTable tableName="file">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cdn_url" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="partner_file">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="partner_id" type="bigint">
+                <constraints foreignKeyName="fk_file_partner_id" references="partner(id)" nullable="false"/>
+            </column>
+            <column name="file_id" type="bigint">
+                <constraints foreignKeyName="fk_file_id" references="file(id)" nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="driver_file">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_id" type="bigint">
+                <constraints foreignKeyName="fk_file_driver_id" references="driver(id)" nullable="false"/>
+            </column>
+            <column name="file_id" type="bigint">
+                <constraints foreignKeyName="fk_driver_file_file_id" references="file(id)" nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0017" author="ADROIT" context="default">
+        <addColumn tableName="file">
+            <column name="key" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0018" author="ADROIT" context="default">
+        <dropUniqueConstraint tableName="account" constraintName="email"/>
+    </changeSet>
+    <changeSet id="create_changelog_0019" author="ADROIT" context="default">
+        <dropUniqueConstraint tableName="account" constraintName="phone_number"/>
+    </changeSet>
+    <changeSet id="create_changelog_0020" author="ADROIT" context="default">
+        <addColumn tableName="partner">
+            <column name="is_archived" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived_at" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0021" author="ADROIT" context="default">
+        <createTable tableName="client">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_type_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="client_type">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="text_value" type="varchar(64)" defaultValue="textVal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="display_in_user_interface" type="tinyint(1)" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0022" author="ADROIT" context="default">
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_client
+            BEFORE INSERT on client
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_client;
+        </rollback>
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_client_type
+            BEFORE INSERT on client_type
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_client_type;
+        </rollback>
+    </changeSet>
+    <changeSet id="create_changelog_0023" author="ADROIT" context="default">
+        <addColumn tableName="client">
+            <column name="bank_account_id" type="bigint"/>
+            <column name="owner_account_id" type="bigint"/>
+            <column name="location_id" type="bigint"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0024" author="ADROIT" context="default">
+        <addForeignKeyConstraint constraintName="fk_client_bank_account" baseTableName="client"
+                                 baseColumnNames="bank_account_id" referencedTableName="bank_account"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint constraintName="fk_client_owner_account" baseTableName="client"
+                                 baseColumnNames="owner_account_id" referencedTableName="account"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint constraintName="fk_client_location" baseTableName="client"
+                                 baseColumnNames="location_id" referencedTableName="location"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint constraintName="fk_client_client_type" baseTableName="client"
+                                 baseColumnNames="client_type_id" referencedTableName="client_type"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="create_changelog_0025" author="ADROIT" context="default">
+        <addColumn tableName="client">
+            <column name="phone_number" type="varchar(512)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0026" author="ADROIT" context="default">
+        <createTable tableName="contact">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(512)">
+                <constraints unique="true"/>
+            </column>
+            <column name="phone_number" type="varchar(512)">
+                <constraints unique="true"/>
+            </column>
+            <column name="title" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_id" type="bigint"/>
+            <column name="passenger_id" type="bigint"/>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0027" author="ADROIT" context="default">
+        <addColumn tableName="contact">
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_contact_account_id" references="account(id)"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="file">
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_file_account_id" references="account(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0028" author="ADROIT" context="default">
+        <createTable tableName="client_file">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_id" type="bigint">
+                <constraints foreignKeyName="fk_file_client_id" references="client(id)" nullable="false"/>
+            </column>
+            <column name="file_id" type="bigint">
+                <constraints foreignKeyName="fk_client_file_file_id" references="file(id)" nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0029" author="ADROIT" context="default">
+        <addColumn tableName="bank_account">
+            <column name="client_id" type="bigint">
+                <constraints foreignKeyName="fk_bank_account_client" references="client(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0030" author="ADROIT" context="default">
+        <addColumn tableName="location_link">
+            <column name="client_id" type="bigint">
+                <constraints foreignKeyName="fk_location_link_client" references="client(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0031" author="ADROIT" context="default">
+        <addColumn tableName="client">
+            <column name="is_archived" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived_at" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0032" author="ADROIT" context="default">
+        <createTable tableName="trip">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="enum('prescheduled', 'on_demand')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status"
+                    type="enum('none', 'dispatched', 'accepted', 'declined', 'in_progress', 'serviced', 'no_show', 'canceled_late', 'canceled_in_advance')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_service" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="estimated_mileage" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="estimated_duration_in_minutes" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_test_trip" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0033" author="ADROIT" context="default">
+        <createTable tableName="time_zone">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="offset" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="abbreviation" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="place">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time_zone_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_place_time_zone" references="time_zone(id)"/>
+            </column>
+            <column name="phone_number" type="varchar(64)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="location_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_place_location" references="location(id)"/>
+            </column>
+            <column name="default_start_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="default_end_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="default_late_start_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="default_early_end_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0034" author="ADROIT" context="default">
+        <addColumn tableName="location">
+            <column name="place_id" type="bigint"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0035" author="ADROIT" context="default">
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_time_zone
+            BEFORE INSERT ON time_zone
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_time_zone;
+        </rollback>
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_place
+            BEFORE INSERT ON place
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_place;
+        </rollback>
+    </changeSet>
+    <changeSet id="create_changelog_0036" author="ADROIT" context="default">
+        <dropColumn tableName="location" columnName="place_id"/>
+        <addColumn tableName="location_link">
+            <column name="place_id" type="bigint"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0037" author="ADROIT" context="default">
+        <createTable tableName="guardian">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_guardian_account" references="account(id)"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="passenger">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="bigint"/>
+            <column name="first_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="picture_url" type="varchar(2048)"/>
+            <column name="guardian_id" type="bigint"/>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0038" author="ADROIT" context="default">
+        <createTable tableName="passenger_address">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_passenger_address_location" references="location(id)"/>
+            </column>
+            <column name="passenger_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_passenger_address_passenger"
+                             references="passenger(id)"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0039" author="ADROIT" context="default">
+        <addColumn tableName="place">
+            <column name="is_archived" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived_at" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0040" author="ADROIT" context="default">
+        <addColumn tableName="passenger">
+            <column name="date_of_birth" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_passenger_client_id" references="client(id)"/>
+            </column>
+            <column name="needs_booster_seat" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="needs_car_seat" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="needs_safety_vest" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="needs_monitor" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_been_on_trip" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_archived" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived_at" type="datetime"/>
+        </addColumn>
+        <addColumn tableName="guardian">
+            <column name="title" type="varchar(64)"/>
+            <column name="passenger_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_guardian_passenger_id" references="passenger(id)"/>
+            </column>
+        </addColumn>
+        <dropColumn tableName="passenger" columnName="type"/>
+        <addColumn tableName="passenger">
+            <column name="type" type="enum('student')">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <dropColumn tableName="passenger" columnName="guardian_id"/>
+        <addColumn tableName="contact">
+            <column name="relationship" type="varchar(256)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0041" author="ADROIT" context="default">
+        <addColumn tableName="guardian">
+            <column name="relationship" type="varchar(256)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0042" author="ADROIT" context="default">
+        <createTable tableName="client_admin">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="bigint">
+                <constraints foreignKeyName="fk_client_admin_account" references="account(id)"/>
+            </column>
+            <column name="client_id" type="bigint">
+                <constraints foreignKeyName="fk_client_admin_client" references="client(id)"/>
+            </column>
+            <column name="title" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0043" author="ADROIT" context="default">
+        <createTable tableName="service_contract_status">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="text_value" type="varchar(64)" defaultValue="textVal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="display_in_user_interface" type="tinyint(1)" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0044" author="ADROIT" context="default">
+        <createTable tableName="service_contract">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_id" type="bigint">
+                <constraints foreignKeyName="fk_service_contract_client_id" references="client(id)" nullable="false"/>
+            </column>
+            <column name="service_contract_status_id" type="bigint">
+                <constraints foreignKeyName="fk_service_contract_status_id" references="service_contract_status(id)"
+                             nullable="false"/>
+            </column>
+            <column name="service_start_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service_end_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="no_show_minimum_required_wait_in_mins" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="no_show_invoices_percentage" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="advance_cancel_cutoff_in_mins" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="monitor_fee_invoiced_in_increments_of_hrs" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="miles_included_in_invoiced_base_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="miles_included_in_payout_base_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="extra_wait_invoiced_in_increments_of_mins" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="extra_wait_payout_in_increments_of_mins" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_contract_deleted_by_account_id" references="account(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0045" author="ADROIT" context="default">
+        <createTable tableName="service_contract_pricing">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service_contract_id" type="bigint">
+                <constraints foreignKeyName="fk_service_contract_pricing_contract_id" references="service_contract(id)"
+                             nullable="false"/>
+            </column>
+            <column name="invoiced_additional_mile_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payout_additional_mile_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="invoiced_base_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payout_base_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="invoiced_minivan_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payout_minivan_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="invoiced_large_vehicle_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payout_large_vehicle_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="invoiced_wheelchair_vehicle_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="invoiced_camera_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payout_camera_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="invoiced_seating_equipment_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payout_seating_equipment_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="invoiced_waiting_time_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payout_waiting_time_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="invoiced_monitor_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payout_monitor_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0046" author="ADROIT" context="default">
+        <addColumn tableName="location_link">
+            <column name="passenger_id" type="bigint"/>
+        </addColumn>
+        <dropTable tableName="passenger_address"/>
+    </changeSet>
+    <changeSet id="create_changelog_0047" author="ADROIT" context="default">
+        <dropColumn tableName="guardian" columnName="title"/>
+    </changeSet>
+    <changeSet id="create_changelog_0048" author="ADROIT" context="default">
+        <dropColumn tableName="contact" columnName="title"/>
+        <dropColumn tableName="contact" columnName="relationship"/>
+        <addColumn tableName="contact">
+            <column name="title" type="varchar(128)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0049" author="ADROIT" context="default">
+        <dropColumn tableName="contact" columnName="title"/>
+        <addColumn tableName="contact">
+            <column name="title_or_relationship" type="varchar(128)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0050" author="ADROIT" context="default">
+        <dropColumn tableName="service_contract" columnName="no_show_invoices_percentage"/>
+        <addColumn tableName="service_contract">
+            <column name="no_show_invoiced_percentage" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0051" author="ADROIT" context="default">
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_service_contract_status
+            BEFORE INSERT ON service_contract
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_service_contract_status;
+        </rollback>
+    </changeSet>
+    <changeSet id="create_changelog_0052" author="ADROIT" context="default">
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_service_contract
+            BEFORE INSERT ON service_contract_status
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_service_contract;
+        </rollback>
+    </changeSet>
+    <changeSet id="create_changelog_0053" author="ADROIT" context="default">
+        <createTable tableName="ride_route">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_default_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_am_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_am_late_start_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_pm_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_pm_early_end_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_recurring" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_archived" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived_at" type="datetime"/>
+            <column name="archived_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_route_archived_account_id" references="account(id)"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_route_deleted_account_id" references="account(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="ride_blueprint">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ride_route_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_blueprint_ride_route_id"
+                             references="ride_route(id)"/>
+            </column>
+            <column name="is_default_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_am_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_am_late_start_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_pm_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_pm_early_end_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_of_service"
+                    type="enum('sedan_vehicle', 'minivan_vehicle', 'large_vehicle', 'wheelchair_vehicle')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="camera_service_required" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_monday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_tuesday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_wednesday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_thursday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_friday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_saturday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_sunday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_archived" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived_at" type="datetime"/>
+            <column name="archived_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_archived_account_id" references="account(id)"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_deleted_account_id" references="account(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="ride_blueprint_waypoint">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ride_blueprint_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_blueprint_waypoint_ride_blueprint_id"
+                             references="ride_blueprint(id)"/>
+            </column>
+            <column name="order" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="place_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_waypoint_place_id" references="place(id)"/>
+            </column>
+            <column name="distance_from_prior_stop_in_miles" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="distance_from_prior_stop_in_mins" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="distance_from_destination_in_miles" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="distance_from_destination_in_mins" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="estimated_arrival_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scheduled_arrival_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_archived" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived_at" type="datetime"/>
+            <column name="archived_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_waypoint_archived_account_id" references="account(id)"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_waypoint_deleted_account_id" references="account(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="ride_blueprint_waypoint_passenger">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ride_blueprint_waypoint_id" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="fk_ride_blueprint_waypoint_passenger_ride_blueprint_waypoint_id"
+                             references="ride_blueprint_waypoint(id)"/>
+            </column>
+            <column name="passenger_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_blueprint_waypoint_passenger_passenger_id"
+                             references="passenger(id)"/>
+            </column>
+            <column name="location_link_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_blueprint_waypoint_passenger_location_link_id"
+                             references="location_link(id)"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_archived" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived_at" type="datetime"/>
+            <column name="archived_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_waypoint_passenger_archived_account_id"
+                             references="account(id)"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_waypoint_passenger_deleted_account_id"
+                             references="account(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="ride_client">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ride_route_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_client_ride_route_id"
+                             references="ride_route(id)"/>
+            </column>
+            <column name="client_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_client_client_id" references="client(id)"/>
+            </column>
+            <column name="invoice_responsibility_percentage" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_client_deleted_account_id" references="account(id)"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="ride_client_invoice_adjustment">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_client_inv_adj_client_id"
+                             references="client(id)"/>
+            </column>
+            <column name="ride_blueprint_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_client_inv_adj_blueprint_id"
+                             references="ride_blueprint(id)"/>
+            </column>
+            <column name="discount_amount" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="other_service_amount" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="other_service_item_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="estimated_ride_fare" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_client_inv_adj_deleted_account_id" references="account(id)"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="ride_place">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ride_route_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_place_ride_route_id" references="ride_route(id)"/>
+            </column>
+            <column name="place_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_place_place_id" references="place(id)"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_place_deleted_account_id" references="account(id)"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="ride_place_passenger">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passenger_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_place_passenger_passenger_id"
+                             references="passenger(id)"/>
+            </column>
+            <column name="place_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_place_passenger_place_id" references="place(id)"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_place_passenger_deleted_account_id" references="account(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0054" author="ADROIT" context="default">
+        <addColumn tableName="ride_blueprint_waypoint">
+            <column name="type" type="enum('pick_up', 'drop_off')">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0055" author="ADROIT" context="default">
+        <dropNotNullConstraint tableName="ride_client_invoice_adjustment" columnName="other_service_item_name"
+                               columnDataType="varchar(128)"/>
+    </changeSet>
+    <changeSet id="create_changelog_0056" author="ADROIT" context="default">
+        <addColumn tableName="ride_blueprint">
+            <column name="type" type="varchar(128)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0057" author="ADROIT" context="default">
+        <createTable tableName="ride_blueprint_assignment">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ride_blueprint_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_blueprint_assignment_ride_blueprint_id"
+                             references="ride_blueprint(id)"/>
+            </column>
+            <column name="service_start_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service_end_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_monday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_tuesday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_wednesday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_thursday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_friday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_saturday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recurs_on_sunday" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="monday_driver_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_assignment_driver_id_1" references="driver(id)"/>
+            </column>
+            <column name="tuesday_driver_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_assignment_driver_id_2" references="driver(id)"/>
+            </column>
+            <column name="wednesday_driver_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_assignment_driver_id_3" references="driver(id)"/>
+            </column>
+            <column name="thursday_driver_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_assignment_driver_id_4" references="driver(id)"/>
+            </column>
+            <column name="friday_driver_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_assignment_driver_id_5" references="driver(id)"/>
+            </column>
+            <column name="saturday_driver_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_assignment_driver_id_6" references="driver(id)"/>
+            </column>
+            <column name="sunday_driver_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_blueprint_assignment_driver_id_7" references="driver(id)"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+            <column name="is_archived" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="ride_driver_payout_adjustment">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ride_blueprint_assignment_id" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="fk_ride_driver_payout_adjustment_ride_blueprint_assignment_id"
+                             references="ride_blueprint_assignment(id)"/>
+            </column>
+            <column name="driver_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_driver_payout_adjustment_driver_id" references="driver(id)"/>
+            </column>
+            <column name="add_to_ride_fare_payout" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deduct_from_ride_fare_payout" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="estimated_ride_fare_payout" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0058" author="ADROIT" context="default">
+        <addColumn tableName="service_contract_pricing">
+            <column name="payout_wheelchair_vehicle_fee" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0059" author="ADROIT" context="default">
+        <createTable tableName="ride_change_request_type">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="text_value" type="varchar(64)" defaultValue="textVal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="display_in_user_interface" type="tinyint(1)" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_ride_change_request_type
+            BEFORE INSERT ON ride_change_request_type
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_ride_change_request_type;
+        </rollback>
+        <createTable tableName="ride_change_request">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="effective_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ride_change_request_type_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_change_request_ride_change_request_type_id"
+                             references="ride_change_request_type(id)"/>
+            </column>
+            <column name="ride_route_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_change_request_ride_route_id"
+                             references="ride_route(id)"/>
+            </column>
+            <column name="place_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_change_request_place_id" references="place(id)"/>
+            </column>
+            <column name="passenger_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_change_request_passenger_id"
+                             references="passenger(id)"/>
+            </column>
+            <column name="apply_to_am_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="apply_to_am_late_start_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="apply_to_pm_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="apply_to_pm_early_end_blueprint" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="note" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_ride_change_request_account_id" references="account(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0060" author="ADROIT" context="default">
+        <dropNotNullConstraint tableName="ride_change_request" columnName="ride_route_id" columnDataType="bigint"/>
+        <dropNotNullConstraint tableName="ride_change_request" columnName="place_id" columnDataType="bigint"/>
+        <dropNotNullConstraint tableName="ride_change_request" columnName="passenger_id" columnDataType="bigint"/>
+    </changeSet>
+    <changeSet id="create_changelog_0061" author="ADROIT" context="default">
+        <dropNotNullConstraint tableName="ride_change_request" columnName="note" columnDataType="varchar(512)"/>
+    </changeSet>
+    <changeSet id="create_changelog_0062" author="ADROIT" context="default">
+        <dropTable tableName="trip"/>
+        <createTable tableName="trip">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="enum('recurring', 'scheduled', 'on_demand')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status"
+                    type="enum('none', 'dispatched', 'accepted', 'declined', 'in_progress', 'serviced', 'no_show', 'canceled_late', 'canceled_in_advance')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_service" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="estimated_mileage" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="estimated_duration_in_minutes" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_test_trip" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+            <column name="deleted_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_trip_deleted_by_account_id" references="account(id)"/>
+            </column>
+            <column name="is_archived" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="archived_at" type="datetime"/>
+            <column name="archived_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_trip_archived_account_id" references="account(id)"/>
+            </column>
+        </createTable>
+        <createTable tableName="trip_driver">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_account_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_driver_driver_account_id"
+                             references="account(id)"/>
+            </column>
+            <column name="driver_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_driver_driver_id" references="driver(id)"/>
+            </column>
+            <column name="trip_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_driver_trip_id" references="trip(id)"/>
+            </column>
+            <column name="first_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(64)"/>
+            <column name="picture_url" type="varchar(2048)"/>
+            <column name="completed_daily_checklist" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="completed_daily_checklist_at" type="datetime"/>
+            <column name="daily_checklist_completed_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_trip_driver_checklist_completed_by_account_id"
+                             references="account(id)"/>
+            </column>
+            <column name="is_switched" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="switched_at" type="datetime"/>
+            <column name="switched_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_trip_driver_switched_by_account_id" references="account(id)"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="trip_passenger">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passenger_account_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_passenger_passenger_account_id"
+                             references="account(id)"/>
+            </column>
+            <column name="type" type="enum('student')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status"
+                    type="enum('none', 'picked_up', 'dropped_off', 'no_show', 'cancelled_late', 'cancelled_in_advance')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="picture_url" type="varchar(2048)"/>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="trip_point">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trip_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_point_trip_id" references="trip(id)"/>
+            </column>
+            <column name="order" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="enum('pick_up', 'drop_off')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="enum('none', 'enroute', 'arrived', 'skipped', 'completed')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scheduled_arrival_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="trip_point_location">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(256)"/>
+            <column name="latitude" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street1" type="varchar(256)" defaultValue="street1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street2" type="varchar(128)"/>
+            <column name="city" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zipcode" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="trip_status">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="text_value" type="varchar(64)" defaultValue="textVal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="display_in_user_interface" type="tinyint(1)" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+
+    </changeSet>
+    <changeSet id="create_changelog_0063" author="ADROIT" context="default">
+        <createTable tableName="trip_vehicle">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vehicle_id" type="bigint">
+                <constraints foreignKeyName="fk_trip_vehicle_vehicle_id" references="vehicle(id)" nullable="false"/>
+            </column>
+            <column name="trip_id" type="bigint">
+                <constraints foreignKeyName="fk_trip_vehicle_trip_id" references="trip(id)" nullable="false"/>
+            </column>
+            <column name="make" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="color" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="license_plate" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="picture_url" type="varchar(512)"/>
+            <column name="is_switched" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="switched_at" type="datetime"/>
+            <column name="switched_by_account_id" type="bigint">
+                <constraints foreignKeyName="fk_trip_vehicle_switched_by_account_id" references="account(id)"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0064" author="ADROIT" context="default">
+        <addColumn tableName="trip">
+            <column name="type_of_service"
+                    type="enum('sedan_vehicle', 'minivan_vehicle', 'large_vehicle', 'wheelchair_vehicle')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="camera_service_required" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <dropTable tableName="trip_point_location"/>
+        <createTable tableName="trip_location">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_text_value" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_name" type="varchar(128)"/>
+            <column name="latitude" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street1" type="varchar(256)" defaultValue="street1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street2" type="varchar(128)"/>
+            <column name="city" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zipcode" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="trip_place">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="place_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_place_place_id" references="place(id)"/>
+            </column>
+            <column name="trip_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_place_trip_id" references="trip(id)"/>
+            </column>
+            <column name="type_text_value" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <dropTable tableName="trip_passenger"/>
+        <createTable tableName="trip_passenger">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passenger_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_passenger_passenger_id"
+                             references="passenger(id)"/>
+            </column>
+            <column name="trip_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_passenger_trip_id" references="trip(id)"/>
+            </column>
+            <column name="type_text_value" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="picture_url" type="varchar(1024)"/>
+            <column name="needs_booster_seat" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="needs_car_seat" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="needs_safety_vest" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="needs_monitor" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="trip_waypoint">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trip_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_waypoint_trip_id" references="trip(id)"/>
+            </column>
+            <column name="order" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="enum('pick_up', 'drop_off')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scheduled_arrival_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scheduled_arrival_trip_location_id" type="bigint">
+                <constraints foreignKeyName="fk_trip_waypoint_trip_location_id" references="trip_location(id)"/>
+            </column>
+            <column name="status" type="enum('none', 'enroute', 'arrived', 'skipped', 'completed')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="arrival_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="arrival_trip_location_id" type="bigint">
+                <constraints foreignKeyName="fk_trip_waypoint_arrival_trip_location_id" references="trip_location(id)"/>
+            </column>
+            <column name="no_show_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="no_show_trip_location_id" type="bigint">
+                <constraints foreignKeyName="fk_trip_waypoint_no_show_trip_location_id" references="trip_location(id)"/>
+            </column>
+            <column name="pick_up_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pick_up_trip_location_id" type="bigint">
+                <constraints foreignKeyName="fk_trip_waypoint_pick_up_trip_location_id" references="trip_location(id)"/>
+            </column>
+            <column name="drop_off_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="drop_off_trip_location_id" type="bigint">
+                <constraints foreignKeyName="fk_trip_waypoint_drop_off_trip_location_id"
+                             references="trip_location(id)"/>
+            </column>
+            <column name="additional_waiting_time" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+
+        <createTable tableName="trip_waypoint_passenger">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trip_waypoint_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_waypoint_passenger_trip_waypoint_id"
+                             references="trip_waypoint(id)"/>
+            </column>
+            <column name="trip_passenger_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_waypoint_passenger_passenger_id"
+                             references="trip_passenger(id)"/>
+            </column>
+            <column name="status"
+                    type="enum('none', 'picked_up', 'dropped_off', 'no_show', 'cancelled_late', 'cancelled_in_advance')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="trip_waypoint_passenger_status">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text_value" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="display_in_user_interface" type="tinyint(1)" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+        <createTable tableName="trip_waypoint_status">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text_value" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="display_in_user_interface" type="tinyint(1)" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0065" author="ADROIT" context="default">
+        <addAutoIncrement columnDataType="bigint"
+                          columnName="id"
+                          incrementBy="1"
+                          startWith="20000"
+                          tableName="trip"/>
+    </changeSet>
+    <changeSet id="create_changelog_0066" author="ADROIT" context="default">
+        <addColumn tableName="trip">
+            <column name="ride_route_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_ride_route_id" references="ride_route(id)"/>
+            </column>
+            <column name="ride_blueprint_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_trip_ride_blueprint_id"
+                             references="ride_blueprint(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0067" author="ADROIT" context="default">
+        <addColumn tableName="ride_blueprint">
+            <column name="is_active" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0068" author="ADROIT" context="default">
+        <addColumn tableName="contact">
+            <column name="phone_extension" type="varchar(128)"/>
+        </addColumn>
+        <addColumn tableName="passenger">
+            <column name="phone_extension" type="varchar(128)"/>
+        </addColumn>
+        <addColumn tableName="client">
+            <column name="phone_extension" type="varchar(128)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0069" author="ADROIT" context="default">
+        <addColumn tableName="place">
+            <column name="phone_extension" type="varchar(128)"/>
+        </addColumn>
+        <dropColumn tableName="passenger" columnName="phone_extension"/>
+        <addColumn tableName="passenger">
+            <column name="needs_wheelchair_assistance" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="instructions_note" type="varchar(256)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0070" author="ADROIT" context="default">
+        <dropColumn tableName="trip_waypoint_passenger" columnName="status"/>
+        <addColumn tableName="trip_passenger">
+            <column name="status"
+                    type="enum('none', 'picked_up', 'dropped_off', 'no_show', 'canceled_late', 'canceled_in_advance')">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="trip_waypoint_passenger">
+            <column name="status"
+                    type="enum('none', 'picked_up', 'dropped_off', 'no_show', 'canceled_late', 'canceled_in_advance')">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0071" author="ADROIT" context="default">
+        <addAutoIncrement tableName="trip" columnName="id" startWith="0" incrementBy="1" columnDataType="bigint"/>
+    </changeSet>
+
+    <changeSet id="create_changelog_0072" author="ADROIT" context="default">
+        <createTable tableName="trip_modification">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="trip_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="bigint"/>
+            <column name="account_type" type="varchar(128)"/>
+            <column name="first_name" type="varchar(128)"/>
+            <column name="last_name" type="varchar(128)"/>
+            <column name="action_type" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="json_new_values" type="varchar(2048)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="json_trip_state" type="varchar(8192)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dispatched_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="create_changelog_0073" author="ADROIT" context="default">
+        <dropNotNullConstraint tableName="trip_waypoint" columnName="arrival_time" columnDataType="datetime"/>
+        <dropNotNullConstraint tableName="trip_waypoint" columnName="arrival_trip_location_id" columnDataType="bigint"/>
+        <dropNotNullConstraint tableName="trip_waypoint" columnName="no_show_time" columnDataType="datetime"/>
+        <dropNotNullConstraint tableName="trip_waypoint" columnName="no_show_trip_location_id" columnDataType="bigint"/>
+        <dropNotNullConstraint tableName="trip_waypoint" columnName="pick_up_time" columnDataType="datetime"/>
+        <dropNotNullConstraint tableName="trip_waypoint" columnName="pick_up_trip_location_id" columnDataType="bigint"/>
+        <dropNotNullConstraint tableName="trip_waypoint" columnName="drop_off_time" columnDataType="datetime"/>
+        <dropNotNullConstraint tableName="trip_waypoint" columnName="drop_off_trip_location_id"
+                               columnDataType="bigint"/>
+        <dropNotNullConstraint columnDataType="int" columnName="additional_waiting_time" tableName="trip_waypoint"/>
+    </changeSet>
+    <changeSet id="create_changelog_0074" author="ADROIT" context="default">
+        <renameColumn tableName="account" oldColumnName="phone_number" newColumnName="phone_number_old"
+                      columnDataType="varchar(512)"/>
+        <addColumn tableName="account">
+            <column name="phone_number" type="varchar(512)"/>
+        </addColumn>
+        <sql splitStatements="false" endDelimiter="false">
+            UPDATE account SET phone_number = phone_number_old;
+        </sql>
+        <dropColumn tableName="account" columnName="phone_number_old"/>
+    </changeSet>
+    <changeSet id="create_changelog_0075" author="ADROIT" context="default">
+        <addColumn tableName="ride_place_passenger">
+            <column name="ride_route_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ride_place_passenger_ride_route_id"
+                             references="ride_route(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="create_changelog_0076" author="ADROIT" context="default">
+        <modifyDataType tableName="passenger" columnName="date_of_birth" newDataType="date"/>
+        <modifyDataType tableName="driver" columnName="date_of_birth" newDataType="date"/>
+    </changeSet>
+    <changeSet id="create_changelog_0077" author="ADROIT" context="default">
+        <addColumn tableName="ride_blueprint">
+            <column name="estimated_mileage" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="estimated_duration_in_minutes" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <modifyDataType tableName="trip" columnName="estimated_mileage" newDataType="float"/>
+        <modifyDataType tableName="trip" columnName="estimated_duration_in_minutes" newDataType="int"/>
+    </changeSet>
+    <changeSet id="create_changelog_0079" author="ADROIT" context="default">
+        <dropColumn tableName="bank_account" columnName="bank_name"/>
+        <addColumn tableName="bank_account">
+            <column name="owner_first_name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner_last_name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="create_changelog_0080" author="ADROIT" context="default">
+        <createTable tableName="permission_access">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_type" type="bigint">
+                <constraints foreignKeyName="fk_account_type_id" references="account_type(id)" nullable="false"/>
+            </column>
+            <column name="api_client" type="bigint">
+                <constraints foreignKeyName="fk_api_client_id" references="api_client(id)" nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_changelog_0081" author="ADROIT" context="default">
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_permission_access
+            BEFORE INSERT ON permission_access
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_permission_access;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_changelog_0082" author="ADROIT" context="default">
+        <dropColumn tableName="ride_route" columnName="has_default_blueprint"/>
+        <dropColumn tableName="ride_route" columnName="has_am_blueprint"/>
+        <dropColumn tableName="ride_route" columnName="has_am_late_start_blueprint"/>
+        <dropColumn tableName="ride_route" columnName="has_pm_blueprint"/>
+        <dropColumn tableName="ride_route" columnName="has_pm_early_end_blueprint"/>
+        <addColumn tableName="ride_route">
+            <column name="type_text_value" type="enum('default','am','am late start','pm','pm early end')">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="create_changelog_0083" author="ADROIT" context="default">
+        <dropColumn tableName="sign_in" columnName="failed_password"/>
+    </changeSet>
+
+    <changeSet id="create_changelog_0084" author="ADROIT" context="default">
+        <dropColumn tableName="trip_driver" columnName="completed_daily_checklist"/>
+        <dropColumn tableName="trip_driver" columnName="completed_daily_checklist_at"/>
+        <dropForeignKeyConstraint baseTableName="trip_driver"
+                                  constraintName="fk_trip_driver_checklist_completed_by_account_id"/>
+        <dropColumn tableName="trip_driver" columnName="daily_checklist_completed_by_account_id"/>
+        <addColumn tableName="trip_driver">
+            <column name="driver_email" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="partner_name" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="partner_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="create_changelog_0085" author="ADROIT" context="default">
+        <addColumn tableName="vehicle">
+            <column name="picture_url" type="varchar(512)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="create_changelog_0086" author="ADROIT" context="default">
+        <createTable tableName="trip_daily_checklist">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_id" type="bigint">
+                <constraints foreignKeyName="fk_driver_id" references="driver(id)" nullable="false"/>
+            </column>
+            <column name="api_client" type="bigint">
+                <constraints foreignKeyName="fk_driver_api_client_id" references="api_client(id)" nullable="false"/>
+            </column>
+            <column name="confirmation_ip" type="varchar(64)"/>
+            <column name="updated_at" type="datetime" defaultValue="null"/>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="confirmed_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted_at" type="datetime" defaultValue="null"/>
+        </createTable>
+        <addUniqueConstraint columnNames="driver_id, confirmed_date"
+                             constraintName="trip_daily_checklist_driver_id_confirmed_date"
+                             tableName="trip_daily_checklist"/>
+    </changeSet>
+
+    <changeSet id="create_changelog_0087" author="ADROIT" context="default">
+        <sql endDelimiter="false" splitStatements="false">
+            CREATE TRIGGER before_update_trip_daily_checklist
+            BEFORE INSERT ON trip_daily_checklist
+            FOR EACH ROW
+            BEGIN
+            SET new.uuid = uuid();
+            END;
+        </sql>
+        <rollback>
+            DROP TRIGGER before_update_trip_daily_checklist;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_changelog_0088" author="ADROIT" context="default">
+        <dropForeignKeyConstraint baseTableName="partner" constraintName="fk_bank_account_id"/>
+        <dropIndex indexName="fk_bank_account_id" tableName="partner"/>
+        <dropNotNullConstraint columnDataType="bigint" columnName="bank_account_id" tableName="partner"/>
+    </changeSet>
+
+    <changeSet id="create_changelog_0089" author="ADROIT" context="default">
+        <addColumn tableName="service_contract">
+            <column name="no_show_payout_percentage" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="trip">
+            <column name="map_picture_url" type="varchar(1024)"/>
+        </addColumn>
+        <addColumn tableName="ride_blueprint">
+            <column name="map_picture_url" type="varchar(1024)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="create_changelog_0090" author="ADROIT" context="default">
+        <dropColumn tableName="trip" columnName="map_picture_url"/>
+        <addColumn tableName="trip">
+            <column name="map_picture_url" type="varchar(2048)"/>
+        </addColumn>
+        <dropColumn tableName="ride_blueprint" columnName="map_picture_url"/>
+        <addColumn tableName="ride_blueprint">
+            <column name="map_picture_url" type="varchar(2048)"/>
+        </addColumn>
+        <dropColumn tableName="vehicle" columnName="picture_url"/>
+        <addColumn tableName="vehicle">
+            <column name="picture_url" type="varchar(2048)"/>
+        </addColumn>
+        <dropColumn tableName="account" columnName="picture_url"/>
+        <addColumn tableName="account">
+            <column name="picture_url" type="varchar(2048)"/>
+        </addColumn>
+        <dropColumn tableName="trip_vehicle" columnName="picture_url"/>
+        <addColumn tableName="trip_vehicle">
+            <column name="picture_url" type="varchar(2048)"/>
+        </addColumn>
+        <dropColumn tableName="file" columnName="cdn_url"/>
+        <addColumn tableName="file">
+            <column name="cdn_url" type="varchar(2048)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <dropColumn tableName="trip_passenger" columnName="picture_url"/>
+        <addColumn tableName="trip_passenger">
+            <column name="picture_url" type="varchar(2048)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="create_changelog_0091" author="ADROIT" context="default">
+        <dropTable tableName="trip_status"/>
+    </changeSet>
+
+    <changeSet id="create_changelog_0092" author="ADROIT" context="default">
+        <dropTable tableName="trip_waypoint_status"/>
+        <dropTable tableName="trip_waypoint_passenger_status"/>
+    </changeSet>
+
+    <changeSet id="create_changelog_0093" author="ADROIT" context="default">
+        <dropTable tableName="trip_point"/>
+    </changeSet>
+    <changeSet id="create_changelog_0094" author="OSDB" context="default">
+        <dropColumn tableName="ride_route" columnName="type_text_value"/>
+        <addColumn tableName="ride_route">
+            <column name="has_am" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_am_late_start" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_pm" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_pm_early_return" type="tinyint(1)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <dropColumn tableName="ride_blueprint" columnName="type"/>
+        <dropColumn tableName="ride_blueprint" columnName="is_default_blueprint"/>
+
+        <dropColumn tableName="ride_blueprint" columnName="is_am_blueprint"/>
+
+        <dropColumn tableName="ride_blueprint" columnName="is_am_late_start_blueprint"/>
+
+        <dropColumn tableName="ride_blueprint" columnName="is_pm_blueprint"/>
+
+        <dropColumn tableName="ride_blueprint" columnName="is_pm_early_end_blueprint"/>
+        <addColumn tableName="ride_blueprint">
+            <column name="type_text_value" type="varchar(36)"/>
+        </addColumn>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,1 @@
+export const JEST_PAGINATION = '?page=0&size=10&sort=id%2C%20asc&search=a';
