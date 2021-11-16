@@ -30,7 +30,7 @@
     "@types/deep-diff": "^1.0.0",
     "@types/node": "10.7.2",
     "@types/passport-jwt": "^3.0.1",
-    "aws-sdk": "^2.349.0",
+    "aws-sdk": "^2.814.0",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.1.10",
     "class-validator": "^0.9.1",
