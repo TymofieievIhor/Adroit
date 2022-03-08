@@ -20,7 +20,7 @@
             </activation>
             <properties>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-                <liquibase.version>3.5.3</liquibase.version>
+                <liquibase.version>4.8.0</liquibase.version>
                 <mysql.connector.version>8.0.12</mysql.connector.version>
 
                 <!-- database properties -->
