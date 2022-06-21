@@ -21,7 +21,7 @@
             <properties>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
                 <liquibase.version>3.5.3</liquibase.version>
-                <mysql.connector.version>8.0.12</mysql.connector.version>
+                <mysql.connector.version>8.0.28</mysql.connector.version>
 
                 <!-- database properties -->
                 <liquibase.driver>com.mysql.cj.jdbc.Driver</liquibase.driver>
