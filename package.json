@@ -23,9 +23,9 @@
   },
   "dependencies": {
     "@nestjs/common": "^5.4.0",
-    "@nestjs/core": "^5.4.0",
+    "@nestjs/core": "^9.2.1",
     "@nestjs/passport": "^5.1.0",
-    "@nestjs/swagger": "^2.5.1",
+    "@nestjs/swagger": "^6.1.4",
     "@nestjs/typeorm": "^5.2.2",
     "@types/deep-diff": "^1.0.0",
     "@types/node": "10.7.2",
